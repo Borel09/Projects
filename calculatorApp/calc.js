@@ -42,9 +42,6 @@ class Calculator{
             finished = this.commaMe(result);
             this.currentInput.textContent = finished;
         }
-    
-        console.log('after commmaMe', finished)
-        
     }
 
     chooseOperator(operators){
