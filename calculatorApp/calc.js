@@ -33,32 +33,22 @@ class Calculator{
             return;
         }
         this.currentInput.textContent += num;
+        let result = this.currentInput.textContent;
+        result = result.replace(/,/g, '');
 
-        let str;
-        let result = '';
-        let finished = '';
-        let count = 0;
-
+        let finished;
+        
         if(!this.currentInput.textContent.includes('.')){
-            str = this.currentInput.textContent;
-            str = str.replace(/,/g, '');
-            for(let i = str.length - 1; i >= 0; i--){
-                result += str[i];
-                count++;
-                if(count === 3 && i !== 0){
-                    result += ',';
-                    count = 0;
-                }
-            }
-            finished = result.split('').reverse().join('');
+            finished = this.commaMe(result);
             this.currentInput.textContent = finished;
         }
-
+    
+        console.log('after commmaMe', finished)
         
-
     }
 
     chooseOperator(operators){
+        this.previousInput.textContent = '';
         this.previousInput.textContent += this.currentInput.textContent + ' ' + operators;
         this.currentInput.textContent = '';
     }
@@ -123,15 +113,33 @@ class Calculator{
             this.currentInput.textContent = result;
         }
     }
-
-
-    // updateDisplay(){
-    //     //this.appendDisplay();
+    commaMe(input){
+        let str = ''; 
+        let count = 0;
+        let result = '';
+        let fin = '';
         
-    // }
+        
+        str = input.split('').reverse().join('');
+
+        for(let i = 0; i < str.length; i++){
+            result += str[i];
+            count++;
+            if(count === 3 && i !== str.length -1){
+                result += ',';
+                count = 0;
+            }
+        }
+        
+        fin = result.split('').reverse().join('');
+        return fin
+    }
+
 }
 
+//constructor
 let calc = new Calculator(currentInput, previousInput);
+
 
 // EVENT LISTENERS FOR NUMBER BUTTONS
 number.forEach( button => {
@@ -171,14 +179,24 @@ equalsButton.addEventListener('click', () => {
 //     });
 // }
 
+//ROUGH DRAFT OF SETTING COMMAS EVERY 3RD ELEMENT
+// let str;
+// let result = '';
+// // let finished = '';
+// let count = 0;
 
-
-//testFunc(number)
-// function testFunc(num){
-//    console.log(`Button ${num} clicked!`);
+// if(!this.currentInput.textContent.includes('.')){
+//     str = this.currentInput.textContent;
+//     str = str.replace(/,/g, '');
+//     for(let i = str.length - 1; i >= 0; i--){
+//         result += str[i];
+//         count++;
+//         if(count === 3 && i !== 0){
+//             result += ',';
+//             count = 0;
+//         }
+//     }
+//     finished = result.split('').reverse().join('');
+//     this.currentInput.textContent = finished;
 // }
-
-function commmaMe(){
-    
-}
-
+//console.log('before commaMe', result)
