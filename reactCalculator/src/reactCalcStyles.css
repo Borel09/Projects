@@ -19,7 +19,7 @@ body {
     min-height: 100vh;
     grid-template-columns: repeat(4, 100px);
     grid-template-rows: minmax(120px, auto) repeat(5, 100px);
-    border-radius: 15px;
+    border-radius: 0 0 15px 15px;
 }
 
 .calculator-grid > button {
@@ -33,7 +33,7 @@ body {
     background-color: rgba(255, 255, 255, 0.9);
 }
 
-.doubleButton {
+.double-button {
     grid-column: span 2;
 }
 
@@ -64,3 +64,10 @@ body {
     font-size: 2.5rem;
 }
 
+#equalsButton {
+    border-radius: 0 0 15px 0;
+}
+
+#bottom-left{
+    border-radius: 0 0 0 15px;
+}

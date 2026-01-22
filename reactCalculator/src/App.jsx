@@ -8,10 +8,7 @@ import Assembler from './calc/util/assembler';
 function App() {
     return (
         <div>
-            {/* <div className='calculator-grid'>
-                <Display/>
-                <Keypad/>
-            </div> */Assembler}
+            {<Assembler/>}
         </div>
     )
 }
