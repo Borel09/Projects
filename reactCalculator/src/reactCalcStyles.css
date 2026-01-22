@@ -10,6 +10,8 @@ body {
     background: linear-gradient(to right, #F28C28, #D3D3FF
     );
 }
+
+/* done */
 .calculator-grid {
     display:grid;
     justify-content: center;
@@ -17,6 +19,7 @@ body {
     min-height: 100vh;
     grid-template-columns: repeat(4, 100px);
     grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+    border-radius: 15px;
 }
 
 .calculator-grid > button {
@@ -33,6 +36,8 @@ body {
 .doubleButton {
     grid-column: span 2;
 }
+
+/* done */
 .output {
     grid-column: 1 / -1;
     background-color: rgba(0, 0, 0, 0.75);
@@ -43,13 +48,18 @@ body {
     padding: 10px;
     word-wrap: break-word;
     word-break: break-all;
+    border-radius: 15px 15px 0 0;
+    overflow: hidden;
 }
-.output .previousInput {
+
+/* done */
+.output .previous-input {
     color: rgba(255, 255, 255, 0.75);
     font-size: 1.5rem;
 }
 
-.output .currentInput {
+/* done */
+.output .current-input {
     color: white;
     font-size: 2.5rem;
 }

@@ -1,0 +1,12 @@
+src/
+├── features/
+│   └── calculator/
+│       ├── components/      # UI components specific to the calculator
+│       │   ├── Display.jsx  # Shows the current input/result
+│       │   └── Keypad.jsx   # Grid of buttons
+│       ├── hooks/           
+│       │   └── useCalculator.js # Custom hook: manages state and handlers
+│       └── utils/           
+│           └── mathHelpers.js   # Pure functions: add(), subtract(), etc.
+├── App.jsx                  # Composes the Display and Keypad
+└── main.jsx                 # Entry point
