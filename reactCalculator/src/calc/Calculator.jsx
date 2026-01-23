@@ -1,38 +1,40 @@
-import createDigits from "../util/createDigits";
-import createOperators from "../util/createOperators";
-import Display from "./Display";
+import createDigits from "./util/createDigits";
+import createOperators from "./util/createOperators";
+import Display from "./components/Display";
 import { useState } from "react";
 import React from "react";
 
 
 
-const Keypad = () => {
+const Calculator = () => {
     const [displayValue, setDisplayValue] = useState('0');
 
     const updateDisplay = (currInput) => {
-        setDisplayValue((prevInput) => {
+        setDisplayValue( (prevInput) => {
             if(prevInput === '0'){
                 return currInput;
             } else {
                 return prevInput + currInput;
             }
+            
         });
     };
 
     const addOnclick = (buttonArray) => {
         return buttonArray.map((button) => {
             return React.cloneElement(button, {
-                onClick: () => {
+                onClick: (e) => {
                     //updateDisplay(button.props.children)
                     //CURRENTLY WORKING ON THIS PART
-                    console.log("Clicked:", button.props.children.textConte);
+                    console.log("Clicked:", e.currentTarget.textContent);
+                    updateDisplay(e.currentTarget.textContent)
                 }
                 
             });
         });
     };
 
-    const keyOrder = () => {
+    const buidKeypad = () => {
         let digits = addOnclick(createDigits());
         let operators = createOperators();
 
@@ -44,23 +46,23 @@ const Keypad = () => {
 
         digits.pop();
         digits.push(<button className="number" id="bottom-left" key={'.'}>.</button>)
-        digits.push(<button className="number" key={'0'}>0</button>)
+        digits.push(<button className="number" key={'0'} onClick={(e) => updateDisplay(e.currentTarget.textContent)}>0</button>)
         
-        console.log(digits);
+        //console.log(digits);
         return digits;
     }
 
-    let keyPadOrder = keyOrder();
+    let keyPadOrder = buidKeypad();
     return(
         <>
-            <Display value={displayValue}/>
+            <Display currentInput={displayValue} previousInput={""}/>
             <button className="double-button" id="clearButton" key={'allClear'} onClick={() => setDisplayValue('0')}>AC</button>
             <button className="delete-key" id="deleteButton" key={'delete'} onClick={() => setDisplayValue(displayValue.slice(0, -1))}>DEL</button>
             {keyPadOrder}
-            <button className="double-button" id="equalsButton" key={'='}>=</button>
+            <button className="double-button" id="equalsButton" key={'='} >=</button>
         </>
     )
 };
-export default Keypad;
+export default Calculator;
 
 
