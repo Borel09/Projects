@@ -3,8 +3,7 @@ import Keypad from "../components/Keypad";
 
 const Assembler = () => {
     return(
-        <div className="calculator-grid">
-            <Display/>           
+        <div className="calculator-grid">        
             <Keypad/>            
         </div>
     );
