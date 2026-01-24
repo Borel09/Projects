@@ -1,3 +1,4 @@
+import addCommas from "../hooks/addCommas";
 import createDigits from "../hooks/createDigits";
 import createOperators from "../hooks/createOperators";
 //import commas from "../hooks/commas";
@@ -8,17 +9,29 @@ import { useState } from "react";
 
 
 const CalcAssembly = () => {
-    const [currentInput, setCurrentInput] = useState('');
+    const [currentInput, setCurrentInput] = useState('0');
     const updateDisplay = value => {
         if(currentInput === '0' && value === '0' 
             || currentInput.includes('.') && value === '.'){
             return
         } 
 
+        let cleanNums = currentInput.split(',').join('');
+        let finishedNums;
+
+        if(!cleanNums.includes('.')){
+            //run commas()
+            finishedNums = addCommas(cleanNums);
+            
+            //run setcurrent(result of commas)
+            setCurrentInput(finishedNums + value);
+        }
+        
+        
         setCurrentInput(currentInput + value);
     }
-  
-    // console.log(commas());
+    // console.log(addCommas())
+
     
     function addBtnClick(buttonArray) {
         let buttons = buttonArray;

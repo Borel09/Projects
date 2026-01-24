@@ -1,5 +1,3 @@
-
-
 function createOperators(){
     let operators = ['÷', '*', '+', '-'];
     let result = [];
@@ -8,9 +6,7 @@ function createOperators(){
         result.push(
             <button className="operator" key={operators[i]}>{operators[i]}</button>
         );
-    };
-    
+    };    
     return result;
 }
-
 export default createOperators;
