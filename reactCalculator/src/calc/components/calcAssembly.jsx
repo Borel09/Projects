@@ -1,5 +1,6 @@
-import createDigits from "../util/createDigits";
-import createOperators from "../util/createOperators";
+import createDigits from "../hooks/createDigits";
+import createOperators from "../hooks/createOperators";
+//import commas from "../hooks/commas";
 import Display from "./Display";
 import { useState } from "react";
 
@@ -9,16 +10,24 @@ import { useState } from "react";
 const CalcAssembly = () => {
     const [currentInput, setCurrentInput] = useState('');
     const updateDisplay = value => {
+        if(currentInput === '0' && value === '0' 
+            || currentInput.includes('.') && value === '.'){
+            return
+        } 
+
         setCurrentInput(currentInput + value);
     }
-
+  
+    // console.log(commas());
+    
     function addBtnClick(buttonArray) {
         let buttons = buttonArray;
         let result = [];
         for(let i = 0; i < buttons.length; i++){
             result.push(
-                <button className={i.className} key={i.key} onClick={() => {
-                    updateDisplay(buttons[i].key)}
+                <button className={buttons[i].props.className} key={buttons[i].key} onClick={() => {
+                    updateDisplay(buttons[i].key)
+                }
                 }>{buttons[i].key}</button>
             )
         }
