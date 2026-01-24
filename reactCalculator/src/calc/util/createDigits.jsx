@@ -9,6 +9,7 @@ function createDigits(){
     result.push(<button className="number" key={0}>0</button>)
     return result;
 }
-
 export default createDigits;
+
+
 

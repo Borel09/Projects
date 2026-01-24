@@ -1,7 +1,7 @@
 
 
 
-const Display = ({currentInput = "0", previousInput = ''}) =>{
+const Display = ({currentInput, previousInput}) =>{
 
     return(
         //output div that will house current and previous inputs
