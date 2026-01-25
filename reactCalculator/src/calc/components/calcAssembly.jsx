@@ -41,6 +41,7 @@ const CalcAssembly = () => {
             if(operators.includes(value)){
                 setPreviousInput(currentInput + value);
                 setCurrentInput('');
+                return
             }
             setCurrentInput(currentInput + value);
             return
@@ -71,9 +72,12 @@ const CalcAssembly = () => {
         let result = [];
         for(let i = 0; i < buttons.length; i++){
             result.push(
-                <button className={buttons[i].props.className} key={buttons[i].key} onClick={() => {
-                    updateDisplay(buttons[i].key)
-                }
+                <button className={buttons[i].props.className}
+                    id={buttons[i].props.id}
+                    key={buttons[i].key} 
+                    onClick={() => {
+                        updateDisplay(buttons[i].key)
+                    }
                 }>{buttons[i].key}</button>
             )
         }

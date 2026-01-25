@@ -1,6 +1,22 @@
 import addCommas from "./addCommas";
 
 function useCalculator(previousInput, currentInput){
+    let result;
+
+    if(previousInput.includes('.') || currentInput.includes('.')){
+        result = calcDecimal(previousInput, currentInput);
+        console.log('Decimal Calculation: ' + result);
+        return result;
+    } else {
+        result = calcWholeNum(previousInput, currentInput);
+        console.log('Whole Number Calculation: ' + result);
+        return result;        
+    }
+};
+export default useCalculator;
+
+//DECIMAL OR WHOLE NUMBER HANDLER
+function calcDecimal(previousInput, currentInput){
     let rawPrev = previousInput.split(',').join(''); //will include the operator
     let rawCurr = currentInput;
     let prevInput = parseFloat(rawPrev.slice(0, -1))
@@ -11,8 +27,7 @@ function useCalculator(previousInput, currentInput){
     //conditionals for which operation to do
     if(operator === '+'){
         result = add(prevInput, currInput);
-    } 
-    else if(operator === '-'){
+    } else if(operator === '-'){
         result = subtract(prevInput, currInput);   
     } else if(operator === '*'){
         result = multiply(prevInput, currInput);
@@ -27,7 +42,28 @@ function useCalculator(previousInput, currentInput){
     let decimals = splitResult[1];
     let finalResult = wholeNums + "." + decimals;
     return finalResult;
-};
+}
+
+function calcWholeNum(previousInput, currentInput){
+    let rawPrev = previousInput.split(',').join('');
+    let prevInput = parseFloat(rawPrev.slice(0, -1));
+    let currInput = parseFloat(currentInput);
+    let operator = rawPrev[rawPrev.length - 1];
+    let result = 0;
+
+    if(operator === '+'){
+        result = add(prevInput, currInput);
+    } else if(operator === '-'){
+        result = subtract(prevInput, currInput);
+    } else if(operator === '*'){
+        result = multiply(prevInput, currInput);
+    } else if(operator === '÷'){
+        result = divide(prevInput, currInput);
+    }
+
+    let finalResult = result.toString();    
+    return finalResult;
+}
 
 //OPERATIONS
 function add(x, y){
@@ -50,4 +86,4 @@ function divide(x, y){
     return z;
 }
 
-export default useCalculator;
+
