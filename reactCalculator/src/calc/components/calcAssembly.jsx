@@ -8,25 +8,29 @@ import { useState } from "react";
 
 
 const CalcAssembly = () => {
+    const operators = ['÷', '*', '+', '-'];
     const [currentInput, setCurrentInput] = useState('');
+    const [previousInput, setPreviousInput] = useState('');
     const updateDisplay = value => {
         if(currentInput === '0' && value === '0' 
             || currentInput.includes('.') && value === '.'){
             return
         } 
-
         if(currentInput === ''){
             let result = currentInput.replace('', value);
                        
             setCurrentInput(result);
             return
         }
-
         if(currentInput.includes('.')){
+            if(operators.includes(value)){
+                console.log("firing");
+                setPreviousInput(currentInput + value);
+                setCurrentInput('');
+            }
             setCurrentInput(currentInput + value);
             return
         } 
-
         if(value === '.'){
             let result = currentInput;
             
@@ -36,7 +40,15 @@ const CalcAssembly = () => {
             setCurrentInput(result);
             return
         }
-        
+              
+        if(operators.includes(value)){
+            console.log("firing");
+            setPreviousInput(currentInput + value);
+            setCurrentInput('');
+            return
+        }
+
+
         let result = addCommas(currentInput + value);
         setCurrentInput(result);    
     }
@@ -78,8 +90,8 @@ const CalcAssembly = () => {
     let finalKeys = addBtnClick(keyPadOrder);
     return(
         <>
-            <Display currentInput={currentInput}/>
-            <button className="double-button" id="clearButton" key={'allClear'} onClick={() => setCurrentInput('')}>AC</button>
+            <Display currentInput={currentInput} previousInput={previousInput}/>
+            <button className="double-button" id="clearButton" key={'allClear'} onClick={() => {setCurrentInput(''); setPreviousInput('')}}>AC</button>
             <button className="delete-key" id="deleteButton" key={'delete'} onClick={() => setCurrentInput(currentInput.slice(0, -1))}>DEL</button>
             {finalKeys}
             <button className="double-button" id="equalsButton" key={'='} >=</button>
