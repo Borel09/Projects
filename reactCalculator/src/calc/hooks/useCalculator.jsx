@@ -1,8 +1,53 @@
-// import Display from "../components/Display";
-// import Keypad from "../components/Keypad";
-// import { useState } from "react";
+import addCommas from "./addCommas";
 
-// function useCalculator(){
-//     const [currInput, setCurrInput] = useState('0');
+function useCalculator(previousInput, currentInput){
+    let rawPrev = previousInput.split(',').join(''); //will include the operator
+    let rawCurr = currentInput;
+    let prevInput = parseFloat(rawPrev.slice(0, -1))
+    let currInput = parseFloat(rawCurr);
+    let operator = rawPrev[rawPrev.length - 1];
+    let result = '';
 
-// };
+    //conditionals for which operation to do
+    if(operator === '+'){
+        result = add(prevInput, currInput);
+    } 
+    else if(operator === '-'){
+        result = subtract(prevInput, currInput);   
+    } else if(operator === '*'){
+        result = multiply(prevInput, currInput);
+    } else if(operator === '÷'){
+        result = divide(prevInput, currInput);
+    }
+    
+    //FIX DECIMALS FOR THIS CURRENTLY THE MATH ONLY WORKS WITH DECIMALS
+    //NEEDS TO WORK WITH BOTH DECIMALS AND WHOLE NUMBERS
+    let splitResult = result.toString().split('.');
+    let wholeNums = addCommas(splitResult[0])
+    let decimals = splitResult[1];
+    let finalResult = wholeNums + "." + decimals;
+    return finalResult;
+};
+
+//OPERATIONS
+function add(x, y){
+    let z = x + y;
+    return z
+}
+
+function subtract(x, y){
+    let z = x - y;
+    return z;
+}
+
+function multiply(x, y) {
+    let z = x * y;
+    return z;
+}
+
+function divide(x, y){
+    let z = x / y;
+    return z;
+}
+
+export default useCalculator;
