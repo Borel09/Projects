@@ -10,10 +10,11 @@ import { useState } from "react";
 
 const CalcAssembly = () => {
     const operators = ['÷', '*', '+', '-'];
+    
+    
     const [currentInput, setCurrentInput] = useState('');
     const [previousInput, setPreviousInput] = useState('');
     const [isCalculated, setIsCalculated] = useState(false);
-    // const equalHandler = calculate(previousInput, currentInput);
 
     const updateDisplay = value => {
         //EDGE CASES
@@ -103,9 +104,8 @@ const CalcAssembly = () => {
 
     let keyPadOrder = buidKeypad();
     let finalKeys = addBtnClick(keyPadOrder);
-    
-    // console.log(equalHandler);
-    
+  
+
     return(
         <>
             <Display currentInput={currentInput} previousInput={previousInput}/>
@@ -118,7 +118,8 @@ const CalcAssembly = () => {
                 
                 setPreviousInput(previousInput + currentInput);
                 setCurrentInput(result);
-                setIsCalculated(true)}}>=</button>
+                setIsCalculated(true);
+                }}>=</button>
         </>
     )
 };
