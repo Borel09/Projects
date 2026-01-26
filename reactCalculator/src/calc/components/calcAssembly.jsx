@@ -1,7 +1,7 @@
 import addCommas from "../hooks/addCommas";
 import createDigits from "../hooks/createDigits";
 import createOperators from "../hooks/createOperators";
-import useCalculator from "../hooks/useCalculator";
+import calculate from "../hooks/calculate";
 import Display from "./Display";
 import { useState } from "react";
 
@@ -13,6 +13,7 @@ const CalcAssembly = () => {
     const [currentInput, setCurrentInput] = useState('');
     const [previousInput, setPreviousInput] = useState('');
     const [isCalculated, setIsCalculated] = useState(false);
+    // const equalHandler = calculate(previousInput, currentInput);
 
     const updateDisplay = value => {
         //EDGE CASES
@@ -20,43 +21,42 @@ const CalcAssembly = () => {
             || currentInput.includes('.') && value === '.'){
             return
         } 
-        if(currentInput === ''){
-            let result = currentInput.replace('', value);
-                       
-            setCurrentInput(result);
-            return
-        }
-        if(value === '.'){
-            let result = currentInput;
-            
-            addCommas(result);
-            result += value;
-           
-            setCurrentInput(result);
-            return
-        }
+        
+        //OPERATOR CASES    
+        if(operators.includes(value)){
+            if(currentInput && operators.includes(previousInput.slice(-1))){
+                // console.log('firing');
 
-        //OPERATOR CASES
-        if(currentInput.includes('.')){
-            if(operators.includes(value)){
+                const result = calculate(previousInput, currentInput);
+                setPreviousInput(result + value);
+                setCurrentInput(result);
+                setIsCalculated(true);
+            } else {
                 setPreviousInput(currentInput + value);
                 setCurrentInput('');
-                return
             }
-            setCurrentInput(currentInput + value);
-            return
-        }    
-        if(operators.includes(value)){
-            setPreviousInput(currentInput + value);
-            setCurrentInput('');
             return
         }
 
         if(isCalculated === true){
+            if(operators.includes(previousInput.slice(-1))){
+                // console.log('firing');
+                setCurrentInput(value);  
+                setIsCalculated(false)         
+            } else {
+                setCurrentInput(value);
+                setPreviousInput('');
+                setIsCalculated(false);
+            }
+            return;
+        } 
+        
+        //STANDARD ENTRY
+        if(currentInput === ''){
             setCurrentInput(value);
-            setPreviousInput('');
-            setIsCalculated(false);
-            return
+        } else {
+            const nextValue = currentInput + value;
+            setCurrentInput(nextValue.includes('.') ? nextValue : addCommas(nextValue))
         }
         
 
@@ -103,7 +103,7 @@ const CalcAssembly = () => {
 
     let keyPadOrder = buidKeypad();
     let finalKeys = addBtnClick(keyPadOrder);
-    let equalHandler = useCalculator(previousInput, currentInput);
+    
     // console.log(equalHandler);
     
     return(
@@ -113,8 +113,11 @@ const CalcAssembly = () => {
             <button className="delete-key" id="deleteButton" key={'delete'} onClick={() => setCurrentInput(currentInput.slice(0, -1))}>DEL</button>
             {finalKeys}
             <button className="double-button" id="equalsButton" key={'='} onClick={() => {
+                if(!previousInput || !currentInput) return;
+                const result = calculate(previousInput, currentInput);
+                
                 setPreviousInput(previousInput + currentInput);
-                setCurrentInput(equalHandler);
+                setCurrentInput(result);
                 setIsCalculated(true)}}>=</button>
         </>
     )
