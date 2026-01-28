@@ -37,7 +37,7 @@ function calcDecimal(previousInput, currentInput){
     
     //FIX DECIMALS FOR THIS CURRENTLY THE MATH ONLY WORKS WITH DECIMALS
     //NEEDS TO WORK WITH BOTH DECIMALS AND WHOLE NUMBERS
-    let splitResult = result.toString().split('.');
+    let splitResult = result.toString();
     let wholeNums = addCommas(splitResult[0])
     let decimals = splitResult[1] ? '.' + splitResult[1] : '';
     return wholeNums + decimals;

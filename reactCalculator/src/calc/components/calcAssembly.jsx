@@ -17,6 +17,8 @@ const CalcAssembly = () => {
     const [isCalculated, setIsCalculated] = useState(false);
 
     const updateDisplay = value => {
+
+        
         //EDGE CASES
         if(currentInput === '0' && value === '0' 
             || currentInput.includes('.') && value === '.'){
@@ -36,11 +38,15 @@ const CalcAssembly = () => {
                 setPreviousInput(currentInput + value);
                 setCurrentInput(currentInput);
                 return
-            } else if(currentInput && operators.includes(previousInput[previousInput.length - 1])){
-                console.log('testing');
-                setCurrentInput(currentInput + value);
-                return;
-            }
+            } 
+
+            //THIS IS WHERE THE CURRENT ERROR IS 
+            //FIX
+            // else if(currentInput && operators.includes(previousInput[previousInput.length - 1])){
+            //     console.log('testing');
+            //     setCurrentInput(value);
+            //     return;
+            // }
             
             setCurrentInput(currentInput + value); 
             console.log('firing'); 
@@ -55,14 +61,14 @@ const CalcAssembly = () => {
         //to delete and have ai spit back to me lmao   
         if(operators.includes(value)){
             if(currentInput && operators.includes(previousInput.slice(-1))){
-                // console.log('firing');
+                console.log('firing');
 
                 const result = calculate(previousInput, currentInput);
                 setPreviousInput(result + value);
                 setCurrentInput(result);
                 setIsCalculated(true);
             } else {
-                // console.log('firing');
+                console.log('firing');
                 
                 setPreviousInput(currentInput + value);
                 setCurrentInput('');
