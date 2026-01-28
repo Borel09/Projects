@@ -137,10 +137,10 @@ const CalcAssembly = () => {
     return(
         <>
             <Display currentInput={currentInput} previousInput={previousInput}/>
-            <button className="double-button" id="clearButton" key={'allClear'} onClick={() => {setCurrentInput(''); setPreviousInput('')}}>AC</button>
-            <button className="delete-key" id="deleteButton" key={'delete'} onClick={() => setCurrentInput(currentInput.slice(0, -1))}>DEL</button>
+            <button className="double-button top-row" id="clearButton" key={'allClear'} onClick={() => {setCurrentInput(''); setPreviousInput('')}}>AC</button>
+            <button className="delete-key top-row" id="deleteButton" key={'delete'} onClick={() => setCurrentInput(currentInput.slice(0, -1))}>DEL</button>
             {finalKeys}
-            <button className="double-button" id="equalsButton" key={'='} onClick={() => {
+            <button className="double-button bottom-right" id="equalsButton" key={'='} onClick={() => {
                 if(!previousInput || !currentInput) return;
                 if(isCalculated === true) return;
                 const result = calculate(previousInput, currentInput);

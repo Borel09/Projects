@@ -7,8 +7,7 @@
 body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, #F28C28, #D3D3FF
-    );
+    background-color: #242424;
 }
 
 /* done */
@@ -16,22 +15,51 @@ body {
     display:grid;
     justify-content: center;
     align-content: center;
-    min-height: 100vh;
+    min-height: 50vh;
     grid-template-columns: repeat(4, 100px);
     grid-template-rows: minmax(120px, auto) repeat(5, 100px);
     border-radius: 0 0 15px 15px;
 }
 
-.calculator-grid > button {
+.calculator-grid > .number {
     cursor: pointer;
     font-size: 2rem;
     border: 1px solid white;
     outline: none;
     background-color: rgba(255, 255, 255, 0.75);
 }
-.calculator-grid > button:hover {
-    background-color: rgba(255, 255, 255, 0.9);
+
+
+.calculator-grid > .number:hover {
+    background-color: rgba(255, 255, 255, 0.92);
 }
+.calculator-grid > .operator, #equalsButton{
+    background-color: #FA9F1A;
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px solid white;
+    outline: none;
+    color: black;
+}
+.calculator-grid > .operator:hover{
+    background-color: #ffd595;
+}
+.calculator-grid > #equalsButton:hover{
+    background-color: #ffd595;
+}
+
+.calculator-grid > .top-row{
+    background-color: #adacad;
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px solid white;
+    outline: none;
+    color: black;
+}
+.calculator-grid > .top-row:hover{
+    background-color: #e6e6e6;
+}
+
 
 .double-button {
     grid-column: span 2;
@@ -64,10 +92,11 @@ body {
     font-size: 2.5rem;
 }
 
-#equalsButton {
+.bottom-right {
     border-radius: 0 0 15px 0;
 }
 
 #bottom-left{
     border-radius: 0 0 0 15px;
 }
+
