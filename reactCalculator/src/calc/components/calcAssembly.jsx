@@ -23,7 +23,35 @@ const CalcAssembly = () => {
             return
         } 
         
-        //OPERATOR CASES    
+        if(!currentInput.includes('.') && value === '.'){
+            // console.log("firing");
+            let temp = currentInput.split(',').join('');
+            setCurrentInput(addCommas(temp) + ".");
+            return           
+        }
+        if(currentInput.includes('.')){          
+            if(operators.includes(value)){
+                // console.log('firing');
+                
+                setPreviousInput(currentInput + value);
+                setCurrentInput(currentInput);
+                return
+            } else if(currentInput && operators.includes(previousInput[previousInput.length - 1])){
+                // console.log('testing');
+                setCurrentInput(value);
+                return;
+            }
+            
+            setCurrentInput(currentInput + value); 
+            // console.log('firing'); 
+            return
+            
+        }
+
+
+        //OPERATOR CASES 
+        //really analyse this code. i inadvertantly came up with it on my own just 
+        //to delete and have ai spit back to me lmao   
         if(operators.includes(value)){
             if(currentInput && operators.includes(previousInput.slice(-1))){
                 // console.log('firing');
@@ -33,9 +61,17 @@ const CalcAssembly = () => {
                 setCurrentInput(result);
                 setIsCalculated(true);
             } else {
+                // console.log('firing');
+                
                 setPreviousInput(currentInput + value);
                 setCurrentInput('');
             }
+            return
+        }
+
+        if(operators.includes(value)){
+            setPreviousInput(currentInput + value);
+            setCurrentInput('')
             return
         }
 
@@ -51,18 +87,10 @@ const CalcAssembly = () => {
             }
             return;
         } 
-        
-        //STANDARD ENTRY
-        if(currentInput === ''){
-            setCurrentInput(value);
-        } else {
-            const nextValue = currentInput + value;
-            setCurrentInput(nextValue.includes('.') ? nextValue : addCommas(nextValue))
-        }
-        
-
         //IF NO CASES UPDATE CURRINPUT DISPLAY
         let result = addCommas(currentInput + value);
+        // console.log("firing");
+        
         setCurrentInput(result);    
     }
     
@@ -114,10 +142,11 @@ const CalcAssembly = () => {
             {finalKeys}
             <button className="double-button" id="equalsButton" key={'='} onClick={() => {
                 if(!previousInput || !currentInput) return;
+                if(isCalculated === true) return;
                 const result = calculate(previousInput, currentInput);
                 
                 setPreviousInput(previousInput + currentInput);
-                setCurrentInput(result);
+                setCurrentInput(addCommas(result));
                 setIsCalculated(true);
                 }}>=</button>
         </>

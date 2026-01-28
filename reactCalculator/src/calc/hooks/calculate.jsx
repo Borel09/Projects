@@ -15,7 +15,7 @@ const  calculate = (previousInput, currentInput) => {
 };
 export default calculate;
 
-//DECIMAL OR WHOLE NUMBER HANDLER
+//DECIMAL OR WHOLE NUMBER HANDLER1
 function calcDecimal(previousInput, currentInput){
     let rawPrev = previousInput.split(',').join(''); //will include the operator
     let rawCurr = currentInput;
@@ -60,6 +60,7 @@ function calcWholeNum(previousInput, currentInput){
     } else if(operator === '÷'){
         result = divide(prevInput, currInput);
     }
+
 
     let finalResult = result.toString();    
     return finalResult;
