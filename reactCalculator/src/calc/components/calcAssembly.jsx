@@ -31,22 +31,23 @@ const CalcAssembly = () => {
         }
         if(currentInput.includes('.')){          
             if(operators.includes(value)){
-                // console.log('firing');
+                console.log('firing');
                 
                 setPreviousInput(currentInput + value);
                 setCurrentInput(currentInput);
                 return
             } else if(currentInput && operators.includes(previousInput[previousInput.length - 1])){
-                // console.log('testing');
-                setCurrentInput(value);
+                console.log('testing');
+                setCurrentInput(currentInput + value);
                 return;
             }
             
             setCurrentInput(currentInput + value); 
-            // console.log('firing'); 
+            console.log('firing'); 
             return
             
         }
+
 
 
         //OPERATOR CASES 
@@ -85,6 +86,7 @@ const CalcAssembly = () => {
                 setPreviousInput('');
                 setIsCalculated(false);
             }
+            
             return;
         } 
         //IF NO CASES UPDATE CURRINPUT DISPLAY
