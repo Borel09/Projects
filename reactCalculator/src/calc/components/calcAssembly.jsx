@@ -33,23 +33,30 @@ const CalcAssembly = () => {
         }
         if(currentInput.includes('.')){          
             if(operators.includes(value)){
-                console.log('firing');
+                console.log('firing: currInput & operator moved to prevInput');
                 
                 setPreviousInput(currentInput + value);
                 setCurrentInput(currentInput);
                 return
             } 
 
-            //THIS IS WHERE THE CURRENT ERROR IS 
+            //THIS IS WHERE THE CURRENT ERROR IS ----
+            //ADD BOOLEAN VALUE TO TRACK IF PREVINPUT IS RDY ----
             //FIX
-            // else if(currentInput && operators.includes(previousInput[previousInput.length - 1])){
-            //     console.log('testing');
-            //     setCurrentInput(value);
-            //     return;
-            // }
+            else if(operators.includes(previousInput[previousInput.length - 1])){
+                console.log('testing: prev input is rdy');
+                setCurrentInput(value);
+
+                if(currentInput.endsWith('.')){
+                    setCurrentInput(currentInput + value);
+                    console.log('access for right condition true');
+                    
+                }
+                return;
+            } 
             
             setCurrentInput(currentInput + value); 
-            console.log('firing'); 
+            console.log('firing: Native Entry point'); 
             return
             
         }
