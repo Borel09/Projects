@@ -10,6 +10,7 @@ import { useState } from "react";
 
 const CalcAssembly = () => {
     const operators = ['÷', '*', '+', '-'];
+    const decimalAndPrev = false;
     
     
     const [currentInput, setCurrentInput] = useState('');
@@ -30,36 +31,47 @@ const CalcAssembly = () => {
             let temp = currentInput.split(',').join('');
             setCurrentInput(addCommas(temp) + ".");
             return           
-        }
-        if(currentInput.includes('.')){          
-            if(operators.includes(value)){
-                console.log('firing: currInput & operator moved to prevInput');
-                
-                setPreviousInput(currentInput + value);
-                setCurrentInput(currentInput);
-                return
-            } 
+        } 
+        // if(currentInput.includes('.')){          
+        //     if(operators.includes(value)){
+        //         console.log('firing: currInput & operator moved to prevInput');
+        //         //decimalAndPrev === true;
+        //         setPreviousInput(currentInput + value);
+        //         setCurrentInput(currentInput);
+        //         return
+        //     } 
 
-            //THIS IS WHERE THE CURRENT ERROR IS ----
-            //ADD BOOLEAN VALUE TO TRACK IF PREVINPUT IS RDY ----
-            //FIX
-            else if(operators.includes(previousInput[previousInput.length - 1])){
-                console.log('testing: prev input is rdy');
-                setCurrentInput(value);
+        //     //THIS IS WHERE THE CURRENT ERROR IS ----
+        //     //ADD BOOLEAN VALUE TO TRACK IF PREVINPUT IS RDY ----
+        //     //FIX
+        //     if(currentInput.endsWith('.') || decimalAndPrev === true){
+        //         console.log('firing: decimalPrev is true');
+        //         setCurrentInput(currentInput + value);
 
-                if(currentInput.endsWith('.')){
-                    setCurrentInput(currentInput + value);
-                    console.log('access for right condition true');
+
+        //         return;                
+        //     }
+        //     // else if(operators.includes(previousInput[previousInput.length - 1])){
+        //     //     console.log('testing: prev input is rdy');
+        //     //     setCurrentInput(value);
+
+
+        //     //     if(currentInput.endsWith('.') || decimalAndPrev === true){
+        //     //         setCurrentInput(currentInput + value);
+        //     //         console.log('access for right condition true');
                     
-                }
-                return;
-            } 
+        //     //     }
+        //     //     return;
+        //     // } 
+
+
+                       
             
-            setCurrentInput(currentInput + value); 
-            console.log('firing: Native Entry point'); 
-            return
-            
-        }
+        // }
+
+        setCurrentInput(currentInput + value); 
+        console.log('firing: Native Entry point'); 
+        
 
 
 
