@@ -1,4 +1,4 @@
-import addCommas from "../hooks/addCommas";
+// import addCommas from "../hooks/addCommas";
 import createDigits from "../hooks/createDigits";
 import createOperators from "../hooks/createOperators";
 import calculate from "../hooks/calculate";
@@ -10,11 +10,10 @@ import { useState } from "react";
 
 const CalcAssembly = () => {
     const operators = ['÷', '*', '+', '-'];
-    const decimalAndPrev = false;
-    
     
     const [currentInput, setCurrentInput] = useState('');
     const [previousInput, setPreviousInput] = useState('');
+    const [prevReadyBool, setPrevReadyBool] = useState(false);
     const [isCalculated, setIsCalculated] = useState(false);
 
     const updateDisplay = value => {
@@ -29,9 +28,42 @@ const CalcAssembly = () => {
         if(!currentInput.includes('.') && value === '.'){
             // console.log("firing");
             let temp = currentInput.split(',').join('');
-            setCurrentInput(addCommas(temp) + ".");
+            setCurrentInput(temp + value);
+            // setCurrentInput(addCommas(temp) + ".");
             return           
         } 
+
+
+        //WHOLE NUMBERS
+        //setting up the first digit in calc (previousInput + operator)
+        if(!previousInput && operators.includes(value)){
+            console.log('testing 1');
+            setPreviousInput(currentInput + value);
+            setCurrentInput('');
+            setPrevReadyBool(true);
+
+            return;
+        }
+
+        if(prevReadyBool === true && operators.includes(value)){
+            console.log('testing 2');
+            let result = calculate(previousInput, currentInput);
+            setIsCalculated(true);
+            setPrevReadyBool(false);
+            
+            setPreviousInput(result + value);
+            setCurrentInput(result);
+            return;
+        } else if(isCalculated === true){
+            console.log('testing 3');
+            setCurrentInput(value);
+            setPrevReadyBool(true);
+            setIsCalculated(false);
+            
+            return;
+        }
+
+
         // if(currentInput.includes('.')){          
         //     if(operators.includes(value)){
         //         console.log('firing: currInput & operator moved to prevInput');
@@ -69,8 +101,8 @@ const CalcAssembly = () => {
             
         // }
 
-        setCurrentInput(currentInput + value); 
-        console.log('firing: Native Entry point'); 
+        // setCurrentInput(currentInput + value); 
+        // console.log('firing: Native Entry point'); 
         
 
 
@@ -78,44 +110,41 @@ const CalcAssembly = () => {
         //OPERATOR CASES 
         //really analyse this code. i inadvertantly came up with it on my own just 
         //to delete and have ai spit back to me lmao   
-        if(operators.includes(value)){
-            if(currentInput && operators.includes(previousInput.slice(-1))){
-                console.log('firing');
+        // if(operators.includes(value)){
+        //     if(currentInput && operators.includes(previousInput.slice(-1))){
+        //         console.log('firing');
 
-                const result = calculate(previousInput, currentInput);
-                setPreviousInput(result + value);
-                setCurrentInput(result);
-                setIsCalculated(true);
-            } else {
-                console.log('firing');
+        //         const result = calculate(previousInput, currentInput);
+        //         setPreviousInput(result + value);
+        //         setCurrentInput(result);
+        //         setIsCalculated(true);
+        //     } else {
+        //         console.log('firing');
                 
-                setPreviousInput(currentInput + value);
-                setCurrentInput('');
-            }
-            return
-        }
+        //         setPreviousInput(currentInput + value);
+        //         setCurrentInput('');
+        //     }
+        //     return
+        // }
 
-        if(operators.includes(value)){
-            setPreviousInput(currentInput + value);
-            setCurrentInput('')
-            return
-        }
+        
 
-        if(isCalculated === true){
-            if(operators.includes(previousInput.slice(-1))){
-                // console.log('firing');
-                setCurrentInput(value);  
-                setIsCalculated(false)         
-            } else {
-                setCurrentInput(value);
-                setPreviousInput('');
-                setIsCalculated(false);
-            }
+        // if(isCalculated === true){
+        //     if(operators.includes(previousInput.slice(-1))){
+        //         // console.log('firing');
+        //         setCurrentInput(value);  
+        //         setIsCalculated(false)         
+        //     } else {
+        //         setCurrentInput(value);
+        //         setPreviousInput('');
+        //         setIsCalculated(false);
+        //     }
             
-            return;
-        } 
+        //     return;
+        // } 
         //IF NO CASES UPDATE CURRINPUT DISPLAY
-        let result = addCommas(currentInput + value);
+        // let result = addCommas(currentInput + value);
+        let result = currentInput + value
         // console.log("firing");
         
         setCurrentInput(result);    
@@ -169,11 +198,13 @@ const CalcAssembly = () => {
             {finalKeys}
             <button className="double-button bottom-right" id="equalsButton" key={'='} onClick={() => {
                 if(!previousInput || !currentInput) return;
-                if(isCalculated === true) return;
+                // if(isCalculated === true) return;
                 const result = calculate(previousInput, currentInput);
                 
                 setPreviousInput(previousInput + currentInput);
-                setCurrentInput(addCommas(result));
+                // setCurrentInput(addCommas(result));
+                setCurrentInput(result);
+                setPrevReadyBool(false);
                 setIsCalculated(true);
                 }}>=</button>
         </>
