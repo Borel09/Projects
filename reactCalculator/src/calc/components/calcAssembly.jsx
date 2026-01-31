@@ -27,13 +27,16 @@ const CalcAssembly = () => {
         
         if(!currentInput.includes('.') && value === '.'){
             // console.log("firing");
-            let temp = currentInput.split(',').join('');
+            let temp = 0;
             setCurrentInput(temp + value);
             // setCurrentInput(addCommas(temp) + ".");
             return           
         } 
 
-
+        //If currInput or Prev Input contains a decimal
+            //run decimal if statments
+        //if not
+            //run whole number if statements
         //WHOLE NUMBERS
         //setting up the first digit in calc (previousInput + operator)
         if(!previousInput && operators.includes(value)){

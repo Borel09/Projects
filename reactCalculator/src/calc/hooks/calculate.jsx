@@ -1,4 +1,4 @@
-import addCommas from "./addCommas";
+// import addCommas from "./addCommas";
 
 const  calculate = (previousInput, currentInput) => {
     let result;
@@ -38,7 +38,8 @@ function calcDecimal(previousInput, currentInput){
     //FIX DECIMALS FOR THIS CURRENTLY THE MATH ONLY WORKS WITH DECIMALS
     //NEEDS TO WORK WITH BOTH DECIMALS AND WHOLE NUMBERS
     let splitResult = result.toString();
-    let wholeNums = addCommas(splitResult[0])
+    // let wholeNums = addCommas(splitResult[0])
+    let wholeNums = splitResult[0]
     let decimals = splitResult[1] ? '.' + splitResult[1] : '';
     return wholeNums + decimals;
 }
