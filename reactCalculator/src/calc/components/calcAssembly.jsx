@@ -75,6 +75,9 @@ const CalcAssembly = () => {
         setCurrentInput(result);    
     }
     
+    // let test = calculate();
+    // console.log(test);
+    
 
     
     function addBtnClick(buttonArray) {
